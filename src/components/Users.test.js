@@ -31,6 +31,10 @@ describe('posting component', () => {
         console.log("this will be tested first")
     })
 
+    afterAll(() => {
+        console.log("this will be tested last")
+    })
+
     it('allows users to post messages', async () => {
         render(<Users />);
         const postInput = screen.getByRole('textbox');
