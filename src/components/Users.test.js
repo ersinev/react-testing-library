@@ -26,6 +26,7 @@ describe('Get Users Component', () => {
 
 
 describe('posting component', () => {
+
     it('allows users to post messages', async () => {
         render(<Users />);
         const postInput = screen.getByRole('textbox');
@@ -36,7 +37,31 @@ describe('posting component', () => {
         fireEvent.click(postButton);
     
         await waitFor(() => expect(screen.getByText('New message')).toBeInTheDocument());
-      });
+    });
+
+    it('should empty the input after posting', () => {
+        render(<Users/>)
+        const postInput = screen.getByRole('textbox');
+        fireEvent.change(postInput, { target: { value: 'New message' } });
+        expect(postInput.value).toBe('New message');
+        const postButton = screen.getByText('Post');
+        fireEvent.click(postButton)
+        expect(postInput.value).toBe("")
+    })
+
+    it('should delete the post after clicking delete button', () => {
+        render(<Users />);
+        const postInput = screen.getByRole('textbox'); 
+        fireEvent.change(postInput, { target: { value: 'New message' } });
+        const postButton = screen.getByText('Post');
+        fireEvent.click(postButton);
+        const deleteButton = screen.getByText('Delete');
+        fireEvent.click(deleteButton);
+        expect(screen.queryByText('New message')).not.toBeInTheDocument();
+
+    })
+
+
 })
 
 

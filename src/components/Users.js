@@ -25,6 +25,11 @@ function Users() {
         setPostText("");
     };
 
+    const deletePost = (index) => {
+        const filteredData = posts.filter((post, i) => i !== index);
+        setPosts(filteredData);
+    };
+   
     return (
         <div>
             <h2>Users</h2>
@@ -45,7 +50,7 @@ function Users() {
             <button onClick={handlePostSubmit}>Post</button>
             <ul>
                 {posts.map((post, index) => (
-                    <li key={index}>{post}</li>
+                    <li key={index}>{post} <button onClick={() => deletePost(index)}>Delete</button></li>
                 ))}
             </ul>
         </div>
